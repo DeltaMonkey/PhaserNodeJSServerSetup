@@ -24,6 +24,12 @@ http.createServer(function (request, response) {
 	
 	// get the /file.html from above and then find it from the current folder
 	var filename = path.join(process.cwd(), uri);
+    if (path.normalize(decodeURI(uri)) !== decodeURI(uri)) {
+        response.statusCode = 403;
+        response.end();
+        return;
+    }
+
 	
 	// Setting up MIME-Type (YOU MAY NEED TO ADD MORE HERE) <---------
 	var contentTypesByExtension = {
